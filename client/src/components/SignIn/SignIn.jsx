@@ -10,6 +10,7 @@ export default function SignIn() {
         password:'',
     });
     const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,12 +20,17 @@ export default function SignIn() {
                 password: values.password,
             });
             const token = response.data.token;
+
+            setError(null);
+            setSuccess('Sign up successful!')
             console.log('User signed up successfully. Token:', token);
             console.log(response.data);
+            
         } catch (error) {
             setError(error.response.data.error)
-            console.log('User sign up unsuccessful:', error.response.data.error)
-            console.log(error)
+            
+            console.log('User sign up unsuccessful:', error.response.data.error, error)
+    
         }
     };
 
@@ -53,6 +59,7 @@ export default function SignIn() {
             </form>
             <div className='text-warning'>
                 {error && error}
+                {success && success}
             </div>
             
         </div>
